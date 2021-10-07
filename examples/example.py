@@ -13,4 +13,3 @@ if __name__ == "__main__":
 
     balances = t.account.balances()
     print(balances.json())
-

@@ -5,6 +5,7 @@ import pytest
 from tradier_python import TradierAPI
 from tradier_python.account_models import *
 
+
 @pytest.fixture
 def t():
     token = os.environ["TRADIER_TOKEN"]
@@ -54,4 +55,3 @@ def test_get_orders(t: TradierAPI):
         id = orders[0].id
         o = t.account.order(id)
         assert isinstance(o, Order)
-

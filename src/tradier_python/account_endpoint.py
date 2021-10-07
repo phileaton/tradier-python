@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 def ensure_list(data, url):
-    key1 = url.rsplit('/', 1)[-1]
+    key1 = url.rsplit("/", 1)[-1]
     key2 = key1[:-1]
     if not isinstance(data[key1][key2], list):
         data[key1][key2] = [data[key1][key2]]
@@ -137,7 +137,7 @@ class AccountEndpoint:
         if account_id is None:
             account_id = self._api.default_account_id
         url = f"/v1/accounts/{account_id}/orders/{id}"
-        params = {'includeTags': include_tags}
+        params = {"includeTags": include_tags}
         data = self._api.get(url, params)
         res = AccountsAPIResponse(**data)
         return res.order

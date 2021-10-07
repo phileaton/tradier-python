@@ -42,7 +42,7 @@ class TradierAPI:
                 response.status_code, response.content.decode("utf-8")
             )
         res_json = response.json()
-        key = url.rsplit('/', 1)[-1]
+        key = url.rsplit("/", 1)[-1]
         if res_json.get(key) == "null":
             res_json[key] = []
         return res_json
