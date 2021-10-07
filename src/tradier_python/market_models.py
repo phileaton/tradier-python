@@ -203,7 +203,7 @@ class Calendar(BaseModel):
     days: Days
 
 
-class Re(BaseModel):
+class MarketsAPIResponse(BaseModel):
     quotes: Optional[Quotes] = None
     options: Optional[Options] = None
     strikes: Optional[Strikes] = None
@@ -214,7 +214,3 @@ class Re(BaseModel):
     securities: Optional[Securities] = None
     clock: Optional[Clock] = None
     calendar: Optional[Calendar] = None
-
-
-class Model(BaseModel):
-    res: List[Re]
