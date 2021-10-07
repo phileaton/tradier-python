@@ -90,7 +90,7 @@ class Position(BaseModel):
 
 
 class Positions(BaseModel):
-    position: List[Position]
+    position: List[Position] = []
 
 
 class Trade(BaseModel):
@@ -129,7 +129,7 @@ class Event(BaseModel):
 
 
 class History(BaseModel):
-    event: List[Event]
+    event: List[Event] = []
 
 
 class ClosedPosition(BaseModel):
@@ -145,7 +145,7 @@ class ClosedPosition(BaseModel):
 
 
 class Gainloss(BaseModel):
-    closed_position: List[ClosedPosition]
+    closed_position: List[ClosedPosition] = []
 
 
 class Leg(BaseModel):
@@ -192,10 +192,10 @@ class Order(BaseModel):
 
 
 class Orders(BaseModel):
-    order: List[Order]
+    order: List[Order] = []
 
 
-class APIResponse(BaseModel):
+class AccountsAPIResponse(BaseModel):
     profile: Optional[Profile] = None
     balances: Optional[Balances] = None
     positions: Optional[Positions] = None

@@ -7,6 +7,14 @@ if TYPE_CHECKING:
     from . import TradierAPI
 
 
+def ensure_list(data, url):
+    key1 = url.rsplit('/', 1)[-1]
+    key2 = key1[:-1]
+    if not isinstance(data[key1][key2], list):
+        data[key1][key2] = [data[key1][key2]]
+    return data
+
+
 class AccountEndpoint:
     """Fetch positions, balances and other account related details."""
 
@@ -23,7 +31,7 @@ class AccountEndpoint:
         url = "/v1/user/profile"
         params = {}
         data = self._api.get(url, params)
-        res = APIResponse(**data)
+        res = AccountsAPIResponse(**data)
         return res.profile
 
     def balances(self, account_id=None) -> Balances:
@@ -38,7 +46,7 @@ class AccountEndpoint:
         url = f"/v1/accounts/{account_id}/balances"
         params = {}
         data = self._api.get(url, params)
-        res = APIResponse(**data)
+        res = AccountsAPIResponse(**data)
         return res.balances
 
     def positions(self, account_id=None) -> List[Position]:
@@ -50,7 +58,7 @@ class AccountEndpoint:
         url = f"/v1/accounts/{account_id}/positions"
         params = {}
         data = self._api.get(url, params)
-        res = APIResponse(**data)
+        res = AccountsAPIResponse(**data)
         return res.positions.position
 
     # Fails with dev account
@@ -63,7 +71,7 @@ class AccountEndpoint:
         start: date = None,
         end: date = None,
         symbol: str = None,
-    ) -> History:
+    ) -> List[Event]:
 
         if account_id is None:
             account_id = self._api.default_account_id
@@ -77,8 +85,8 @@ class AccountEndpoint:
             "symbol": symbol,
         }
         data = self._api.get(url, params)
-        res = APIResponse(**data)
-        return res.history
+        res = AccountsAPIResponse(**data)
+        return res.history.event
 
     def gainloss(
         self,
@@ -90,7 +98,7 @@ class AccountEndpoint:
         end: date = None,
         symbol: str = None,
         account_id=None,
-    ) -> Gainloss:
+    ) -> List[ClosedPosition]:
         if account_id is None:
             account_id = self._api.default_account_id
         url = f"/v1/accounts/{account_id}/gainloss"
@@ -104,8 +112,8 @@ class AccountEndpoint:
             "symbol": symbol,
         }
         data = self._api.get(url, params)
-        res = APIResponse(**data)
-        return res.gainloss
+        res = AccountsAPIResponse(**data)
+        return res.gainloss.closed_position
 
     def orders(
         self,
@@ -117,9 +125,7 @@ class AccountEndpoint:
         url = f"/v1/accounts/{account_id}/orders"
         params = {"includeTags": include_tags}
         data = self._api.get(url, params)
-        if data.get("orders") == "null":
-            data["orders"] = {"order": []}
-        res = APIResponse(**data)
+        res = AccountsAPIResponse(**ensure_list(data, url))
         return res.orders.order
 
     def order(
@@ -130,8 +136,8 @@ class AccountEndpoint:
     ):
         if account_id is None:
             account_id = self._api.default_account_id
-        url = f"/v1/accounts/{account_id}/orders"
-        params = {"includeTage": include_tags}
+        url = f"/v1/accounts/{account_id}/orders/{id}"
+        params = {'includeTags': include_tags}
         data = self._api.get(url, params)
-        res = APIResponse(**data)
-        return res.orders
+        res = AccountsAPIResponse(**data)
+        return res.order
