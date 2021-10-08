@@ -3,7 +3,6 @@ from urllib.parse import urljoin
 import requests
 
 from .models import *
-from .util import ensure_list
 
 
 class TradierAPI:
@@ -522,3 +521,13 @@ class TradierAPIError(Exception):
     def __init__(self, code: int, message: str):
         self.code = code
         self.message = message
+
+def ensure_list(data, key1, key2=None):
+    if key2 is None:
+        key2 = key1[:-1]
+
+    if data[key1].get(key2) is None:
+        data[key1][key2] = []
+    elif not isinstance(data[key1].get(key2), list):
+        data[key1][key2] = [data[key1][key2]]
+    return data
