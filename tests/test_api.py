@@ -3,7 +3,7 @@ import os
 import pytest
 
 from tradier_python import TradierAPI
-from tradier_python.account_models import *
+from tradier_python.models import *
 
 
 @pytest.fixture
@@ -19,43 +19,43 @@ def test_invalid_request(t: TradierAPI):
 
 
 def test_get_profile(t: TradierAPI):
-    profile = t.account.profile()
+    profile = t.get_profile()
     assert isinstance(profile, Profile)
 
 
 def test_get_balances(t: TradierAPI):
-    balances = t.account.balances()
+    balances = t.get_balances()
     assert isinstance(balances, Balances)
 
 
 def test_get_positions(t: TradierAPI):
-    positions = t.account.positions()
+    positions = t.get_positions()
     assert isinstance(positions, list)
     for p in positions:
         assert isinstance(p, Position)
 
 
 def test_get_history(t: TradierAPI):
-    history = t.account.history()
+    history = t.get_history()
     assert isinstance(history, list)
     for e in history:
         assert isinstance(e, Event)
 
 
 def test_get_gainloss(t: TradierAPI):
-    gainloss = t.account.gainloss()
+    gainloss = t.get_gain_loss()
     assert isinstance(gainloss, list)
     for p in gainloss:
         assert isinstance(p, ClosedPosition)
 
 
 def test_get_orders(t: TradierAPI):
-    orders = t.account.orders()
+    orders = t.get_orders()
     assert isinstance(orders, list)
     for o in orders:
         assert isinstance(o, Order)
 
     if len(orders):
         id = orders[0].id
-        o = t.account.order(id)
+        o = t.get_order(id)
         assert isinstance(o, Order)

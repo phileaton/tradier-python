@@ -8,33 +8,35 @@ if __name__ == "__main__":
     base_url = os.environ.get("TRADIER_BASE_URL")
     t = TradierAPI(token=token, default_account_id=account_id, base_url=base_url)
 
-    profile = t.account.profile()
+    profile = t.get_profile()
     print(profile)
 
-    balances = t.account.balances()
+    balances = t.get_balances()
     print(balances)
 
-    orders = t.account.orders()
+    orders = t.get_orders()
     for o in orders:
         print(o)
 
-    positions = t.account.positions()
+    positions = t.get_positions()
     for p in positions:
         print(p)
 
     symbol = "SPY"
     side = "buy"
     quantity = 1
-    order_type = "market"
+    order_type = "limit"
+    limit_price = 1.00
     duration = "day"
 
-    order = t.trading.order_equity(
+    order = t.order_equity(
         symbol=symbol,
         side=side,
         quantity=quantity,
         order_type=order_type,
+        limit_price=limit_price,
         duration=duration,
     )
 
-    cancel_response = t.trading.cancel_order(order.id)
+    cancel_response = t.cancel_order(order.id)
     print(cancel_response)
