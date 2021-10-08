@@ -61,8 +61,7 @@ class TradierAPI:
         https://documentation.tradier.com/brokerage-api/user/get-profile
         """
         url = "/v1/user/profile"
-        params = {}
-        data = self.get(url, params)
+        data = self.get(url, {})
         res = AccountsAPIResponse(**data)
         return res.profile
 
@@ -76,8 +75,7 @@ class TradierAPI:
         if account_id is None:
             account_id = self.default_account_id
         url = f"/v1/accounts/{account_id}/balances"
-        params = {}
-        data = self.get(url, params)
+        data = self.get(url, {})
         res = AccountsAPIResponse(**data)
         return res.balances
 
@@ -88,8 +86,7 @@ class TradierAPI:
         if account_id is None:
             account_id = self.default_account_id
         url = f"/v1/accounts/{account_id}/positions"
-        params = {}
-        data = self.get(url, params)
+        data = self.get(url, {})
         res = AccountsAPIResponse(**ensure_list(data, "positions"))
         return res.positions.position
 
@@ -458,8 +455,7 @@ class TradierAPI:
         quite comprehensive and can result in a long download response time.
         """
         url = "/v1/markets/etb"
-        params = {}
-        data = self.get(url, params)
+        data = self.get(url, {})
         res = MarketsAPIResponse(**data)
         return res.securities.security
 
@@ -470,8 +466,7 @@ class TradierAPI:
         state.
         """
         url = "/v1/markets/clock"
-        params = {}
-        data = self.get(url, params)
+        data = self.get(url, {})
         res = MarketsAPIResponse(**data)
         return res.clock
 
