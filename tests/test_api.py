@@ -14,6 +14,10 @@ def t():
     return TradierAPI(token=token, default_account_id=account_id, base_url=base_url)
 
 
+def test_invalid_request(t: TradierAPI):
+    pass
+
+
 def test_get_profile(t: TradierAPI):
     profile = t.account.profile()
     assert isinstance(profile, Profile)

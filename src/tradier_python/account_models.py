@@ -9,6 +9,12 @@ class OptionType(Enum):
     CALL = "call"
     PUT = "put"
 
+    def __repr__(self):
+        return self.value
+
+    def __eq__(self, other):
+        return self.value == other
+
 
 class Account(BaseModel):
     account_number: str
@@ -93,7 +99,7 @@ class Positions(BaseModel):
     position: List[Position] = []
 
 
-class Trade(BaseModel):
+class TradeEvent(BaseModel):
     commission: float
     description: str
     price: float
@@ -102,18 +108,18 @@ class Trade(BaseModel):
     trade_type: str
 
 
-class Adjustment(BaseModel):
+class AdjustmentEvent(BaseModel):
     description: str
     quantity: float
 
 
-class Option(BaseModel):
+class OptionEvent(BaseModel):
     option_type: OptionType
     description: str
     quantity: float
 
 
-class Journal(BaseModel):
+class JournalEvent(BaseModel):
     description: str
     quantity: float
 
@@ -122,10 +128,10 @@ class Event(BaseModel):
     amount: float
     date: datetime
     type: str
-    trade: Optional[Trade] = None
-    adjustment: Optional[Adjustment] = None
-    option: Optional[Option] = None
-    journal: Optional[Journal] = None
+    trade: Optional[TradeEvent] = None
+    adjustment: Optional[AdjustmentEvent] = None
+    option: Optional[OptionEvent] = None
+    journal: Optional[JournalEvent] = None
 
 
 class History(BaseModel):

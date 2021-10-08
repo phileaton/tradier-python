@@ -2,17 +2,10 @@ from datetime import date
 from typing import TYPE_CHECKING
 
 from .account_models import *
+from .util import ensure_list
 
 if TYPE_CHECKING:
     from . import TradierAPI
-
-
-def ensure_list(data, url):
-    key1 = url.rsplit("/", 1)[-1]
-    key2 = key1[:-1]
-    if not isinstance(data[key1][key2], list):
-        data[key1][key2] = [data[key1][key2]]
-    return data
 
 
 class AccountEndpoint:
@@ -125,7 +118,7 @@ class AccountEndpoint:
         url = f"/v1/accounts/{account_id}/orders"
         params = {"includeTags": include_tags}
         data = self._api.get(url, params)
-        res = AccountsAPIResponse(**ensure_list(data, url))
+        res = AccountsAPIResponse(**ensure_list(data, "orders"))
         return res.orders.order
 
     def order(
