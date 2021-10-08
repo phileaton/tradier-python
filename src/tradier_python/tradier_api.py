@@ -33,10 +33,11 @@ class TradierAPI:
         self.trading = TradingEndpoint(self)
         self.market = MarketEndpoint(self)
 
-    def get(self, path: str, params: dict) -> dict:
-        """makes a GET request to a particular endpoint"""
+    def request(self, method: str, path: str, params: dict) -> dict:
         url = urljoin(self.base_url, path)
-        response = self.session.get(url, params=params)
+
+        response = self.session.request(method.upper(), url, params=params)
+
         if response.status_code != 200:
             raise TradierAPIError(
                 response.status_code, response.content.decode("utf-8")
@@ -46,3 +47,19 @@ class TradierAPI:
         if res_json.get(key) == "null":
             res_json[key] = []
         return res_json
+
+    def get(self, path: str, params: dict) -> dict:
+        """makes a GET request to an endpoint"""
+        return self.request("GET", path, params)
+
+    def post(self, path: str, params: dict) -> dict:
+        """makes a POST request to an endpoint"""
+        return self.request("POST", path, params)
+
+    def delete(self, path: str, params: dict):
+        """makes a DELETE request to an endpoint"""
+        return self.request("DELETE", path, params)
+
+    def put(self, path: str, params):
+        """makes a PUT request to an endpoint"""
+        return self.request("PUT", path, params)
