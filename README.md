@@ -22,6 +22,8 @@ pip install tradier-python
 ### Exmple
 
 ```
+import os
+
 from tradier_python import TradierAPI
 
 token = os.environ["TRADIER_TOKEN"]
