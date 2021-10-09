@@ -7,7 +7,7 @@ from tradier_python.models import *
 
 class TradierAPI:
     """
-    https://documentation.tradier.com/brokerage-api
+    Tradier-python is a python client for interacting with the Tradier API.
     """
 
     def __init__(self, token, default_account_id=None, endpoint=None):

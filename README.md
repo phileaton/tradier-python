@@ -1,6 +1,6 @@
 # Tradier-Python
 
-Tradier-python is a python client for interacting with the tradier API.
+Tradier-python is a python client for interacting with the Tradier API.
 
 
 ## Getting Started
