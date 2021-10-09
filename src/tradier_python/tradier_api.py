@@ -517,6 +517,7 @@ class TradierAPIError(Exception):
         self.code = code
         self.message = message
 
+
 def ensure_list(data, key1, key2=None):
     if key2 is None:
         key2 = key1[:-1]

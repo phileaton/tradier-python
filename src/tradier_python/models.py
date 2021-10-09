@@ -4,7 +4,6 @@ from typing import Any, List, Optional
 
 from pydantic import BaseModel, Field, validator
 
-
 BROKERAGE_ENDPOINT = "https://api.tradier.com/"
 SANDBOX_ENDPOINT = "https://sandbox.tradier.com/"
 
