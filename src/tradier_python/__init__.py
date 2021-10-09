@@ -1,1 +1,1 @@
-from .tradier_api import TradierAPI
+from tradier_python.tradier_api import TradierAPI

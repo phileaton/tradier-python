@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 
 import requests
 
-from .models import *
+from tradier_python.models import *
 
 
 class TradierAPI:
@@ -373,7 +373,7 @@ class TradierAPI:
 
     def get_option_expirations(
         self, symbol: str, include_all_roots: str = None, strikes: str = None
-    ) -> [date]:
+    ) -> List[date]:
         """
         Get expiration dates for a particular underlying.
 

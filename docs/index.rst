@@ -6,11 +6,19 @@
 Welcome to Tradier Python's documentation!
 ==========================================
 
+This is a python client for interacting with the Tradier API. Most of the documentation was taken directly from the official API docs. Please reference them for more details.
+
+https://documentation.tradier.com/brokerage-api
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+TradierPython main
+===================
+.. autoclass:: tradier_python.TradierAPI
+   :members:
 
 Indices and tables
 ==================
