@@ -10,10 +10,10 @@ class TradierAPI:
     https://documentation.tradier.com/brokerage-api
     """
 
-    def __init__(self, token, default_account_id=None, base_url=None):
+    def __init__(self, token, default_account_id=None, endpoint=None):
 
         self.default_account_id = default_account_id
-        self.base_url = base_url if base_url else "https://sandbox.tradier.com/"
+        self.endpoint = endpoint if endpoint else SANDBOX_ENDPOINT
         self.session = requests.Session()
         self.session.headers.update(
             {
@@ -23,7 +23,7 @@ class TradierAPI:
         )
 
     def request(self, method: str, path: str, params: dict) -> dict:
-        url = urljoin(self.base_url, path)
+        url = urljoin(self.endpoint, path)
 
         response = self.session.request(method.upper(), url, params=params)
 
