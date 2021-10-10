@@ -336,7 +336,7 @@ class TradierAPI:
         params = {"symbols": symbols, "greeks": greeks}
 
         data = self.get(url, params)
-        res = MarketsAPIResponse(**ensure_list(data, url))
+        res = MarketsAPIResponse(**ensure_list(data, "quotes"))
         return res.quotes
 
     def get_option_chains(
