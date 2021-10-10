@@ -137,7 +137,7 @@ class Event(BaseModel):
     journal: Optional[JournalEvent] = None
 
 
-class History(BaseModel):
+class AccountHistory(BaseModel):
     event: List[Event] = []
 
 
@@ -208,7 +208,7 @@ class AccountsAPIResponse(BaseModel):
     profile: Optional[Profile] = None
     balances: Optional[Balances] = None
     positions: Optional[Positions] = None
-    history: Optional[History] = None
+    history: Optional[AccountHistory] = None
     gainloss: Optional[Gainloss] = None
     orders: Optional[Orders] = None
     order: Optional[Order] = None
@@ -380,18 +380,18 @@ class Clock(BaseModel):
 
 
 class Premarket(BaseModel):
-    start: str
-    end: str
+    start: time
+    end: time
 
 
 class Open(BaseModel):
-    start: str
-    end: str
+    start: time
+    end: time
 
 
 class Postmarket(BaseModel):
-    start: str
-    end: str
+    start: time
+    end: time
 
 
 class Hours(BaseModel):
