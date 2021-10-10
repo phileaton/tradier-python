@@ -372,7 +372,7 @@ class TradierAPI:
         return res.strikes.strike
 
     def get_option_expirations(
-        self, symbol: str, include_all_roots: str = None, strikes: str = None
+        self, symbol: str, include_all_roots: bool = None, strikes: str = None
     ) -> List[date]:
         """
         Get expiration dates for a particular underlying.
