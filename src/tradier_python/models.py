@@ -246,7 +246,7 @@ class Quote(BaseModel):
     strike: Optional[float] = None
     open_interest: Optional[int] = None
     contract_size: Optional[int] = None
-    expiration_date: Optional[str] = None
+    expiration_date: Optional[date] = None
     expiration_type: Optional[str] = None
     option_type: Optional[OptionType] = None
     root_symbol: Optional[str] = None
@@ -306,7 +306,7 @@ class OptionContract(BaseModel):
     ask_date: int
     open_interest: int
     contract_size: int
-    expiration_date: str
+    expiration_date: date
     expiration_type: str
     option_type: OptionType
     root_symbol: str
@@ -322,7 +322,7 @@ class Strikes(BaseModel):
 
 
 class Expirations(BaseModel):
-    date: List[str]
+    date: List[date]
 
 
 class Symbol(BaseModel):
