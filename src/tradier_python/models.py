@@ -194,6 +194,7 @@ class Order(BaseModel):
     status: str
     duration: str
     price: Optional[float] = None
+    stop_price: Optional[float] = None
     avg_fill_price: float
     exec_quantity: float
     last_fill_price: float
