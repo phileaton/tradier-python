@@ -12,6 +12,11 @@ class OptionType(Enum):
     CALL = "call"
     PUT = "put"
 
+
+class OptionType(Enum):
+    CALL = "call"
+    PUT = "put"
+
     def __repr__(self):
         return self.value
 
@@ -216,7 +221,21 @@ class AccountsAPIResponse(BaseModel):
     orders: Optional[Orders] = None
     order: Optional[Order] = None
 
+class Greeks(BaseModel):
+    delta: float
+    gamma: float
+    theta: float
+    vega: float
+    rho: float
+    phi: float
+    bid_iv: float
+    mid_iv: float
+    ask_iv: float
+    smv_vol: float
+    updated_at: str
 
+
+#Should have greeks
 class Quote(BaseModel):
     symbol: str
     description: str
@@ -249,11 +268,11 @@ class Quote(BaseModel):
     strike: Optional[float] = None
     open_interest: Optional[int] = None
     contract_size: Optional[int] = None
-    expiration_date: Optional[date] = None
+    expiration_date: Optional[str] = None
     expiration_type: Optional[str] = None
     option_type: Optional[OptionType] = None
     root_symbol: Optional[str] = None
-
+    greeks: Optional[Greeks] = None
 
 class UnmatchedSymbols(BaseModel):
     symbol: str
@@ -263,61 +282,48 @@ class Quotes(BaseModel):
     quotes: List[Quote] = Field(alias="quote")
     unmatched_symbols: Optional[UnmatchedSymbols]
 
-
-class Greeks(BaseModel):
-    delta: float
-    gamma: float
-    theta: float
-    vega: float
-    rho: float
-    phi: float
-    bid_iv: float
-    mid_iv: float
-    ask_iv: float
-    smv_vol: float
-    updated_at: str
-
-
-class OptionContract(BaseModel):
-    symbol: str
-    description: str
-    exch: str
-    type: str
-    last: Any
-    change: Any
-    volume: int
-    open: Any
-    high: Any
-    low: Any
-    close: Any
-    bid: float
-    ask: float
-    underlying: str
-    strike: float
-    change_percentage: Any
-    average_volume: int
-    last_volume: int
-    trade_date: int
-    prevclose: Any
-    week_52_high: float
-    week_52_low: float
-    bidsize: int
-    bidexch: str
-    bid_date: int
-    asksize: int
-    askexch: str
-    ask_date: int
-    open_interest: int
-    contract_size: int
-    expiration_date: date
-    expiration_type: str
-    option_type: OptionType
-    root_symbol: str
-    greeks: Optional[Greeks]
+#
+#
+# class OptionContract(BaseModel):
+#     symbol: str
+#     description: str
+#     exch: str
+#     type: str
+#     last: Any
+#     change: Any
+#     volume: int
+#     open: Any
+#     high: Any
+#     low: Any
+#     close: Any
+#     bid: float
+#     ask: float
+#     underlying: str
+#     strike: float
+#     change_percentage: Any
+#     average_volume: int
+#     last_volume: int
+#     trade_date: int
+#     prevclose: Any
+#     week_52_high: float
+#     week_52_low: float
+#     bidsize: int
+#     bidexch: str
+#     bid_date: int
+#     asksize: int
+#     askexch: str
+#     ask_date: int
+#     open_interest: int
+#     contract_size: int
+#     expiration_date: str
+#     expiration_type: str
+#     option_type: OptionType
+#     root_symbol: str
+#     greeks: Optional[Greeks]
 
 
 class Options(BaseModel):
-    option: List[OptionContract]
+    option: List[Quote]
 
 
 class Strikes(BaseModel):

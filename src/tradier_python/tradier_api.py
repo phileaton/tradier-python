@@ -341,7 +341,7 @@ class TradierAPI:
 
     def get_option_chains(
         self, symbol: str, expiration: date, greeks: bool = False
-    ) -> List[OptionContract]:
+    ) -> List[Quote]:
         """
         Get all quotes in an option chain. Greek and IV data is included courtesy of ORATS. Please check out their APIs
         for more in-depth options data.
