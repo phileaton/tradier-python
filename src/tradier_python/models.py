@@ -202,7 +202,7 @@ class Order(BaseModel):
     remaining_quantity: float
     create_date: datetime
     transaction_date: datetime
-    class_: str = Field(..., alias="class")
+    order_class: str = Field(..., alias="class")
     option_symbol: Optional[str] = None
     num_legs: Optional[int] = None
     strategy: Optional[str] = None
