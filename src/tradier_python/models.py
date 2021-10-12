@@ -260,16 +260,16 @@ class Quote(BaseModel):
     week_52_low: float
     bidsize: int
     bidexch: str
-    bid_date: int
+    bid_date: datetime
     asksize: int
     askexch: str
-    ask_date: int
+    ask_date: datetime
     root_symbols: Optional[str] = None
     underlying: Optional[str] = None
     strike: Optional[float] = None
     open_interest: Optional[int] = None
     contract_size: Optional[int] = None
-    expiration_date: Optional[str] = None
+    expiration_date: Optional[date] = None
     expiration_type: Optional[str] = None
     option_type: Optional[OptionType] = None
     root_symbol: Optional[str] = None
