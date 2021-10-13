@@ -222,6 +222,7 @@ class AccountsAPIResponse(BaseModel):
     orders: Optional[Orders] = None
     order: Optional[Order] = None
 
+
 class Greeks(BaseModel):
     delta: float
     gamma: float
@@ -274,6 +275,7 @@ class Quote(BaseModel):
     root_symbol: Optional[str] = None
     greeks: Optional[Greeks] = None
 
+
 class UnmatchedSymbols(BaseModel):
     symbol: str
 
@@ -281,6 +283,7 @@ class UnmatchedSymbols(BaseModel):
 class Quotes(BaseModel):
     quotes: List[Quote] = Field(alias="quote")
     unmatched_symbols: Optional[UnmatchedSymbols]
+
 
 class Options(BaseModel):
     option: List[Quote]
@@ -403,6 +406,7 @@ class OrderDetails(BaseModel):
 
 class APIErrors(BaseModel):
     error_list: List[str] = Field(alias="error")
+
 
 class OrderAPIResponse(BaseModel):
     order: Optional[OrderDetails]

@@ -195,8 +195,7 @@ class TradierAPI:
         quantity_2: int = None,
         option_symbol_3: str = None,
         side_3: str = None,
-        quantity_3: int = None
-
+        quantity_3: int = None,
     ) -> OrderDetails:
         """
         Place an order to trade a security.
@@ -226,7 +225,7 @@ class TradierAPI:
             "quantity[2]": quantity_2,
             "option_symbol[3]": option_symbol_3,
             "side[3]": side_3,
-            "quantity[3]": quantity_3
+            "quantity[3]": quantity_3,
         }
         params = {k: v for k, v in params.items() if v is not None}
         data = self.post(url, params)
@@ -265,16 +264,16 @@ class TradierAPI:
 
     def order_option(
         self,
-            symbol: str,
-            option_symbol: str,
-            side: str,
-            quantity: int,
-            order_type: str,
-            duration: str,
-            limit_price: float = None,
-            stop_price: float = None,
-            tag: str = None,
-            account_id: str = None,
+        symbol: str,
+        option_symbol: str,
+        side: str,
+        quantity: int,
+        order_type: str,
+        duration: str,
+        limit_price: float = None,
+        stop_price: float = None,
+        tag: str = None,
+        account_id: str = None,
     ) -> OrderDetails:
         """
         Place an order to trade a single option.
@@ -294,26 +293,25 @@ class TradierAPI:
         )
 
     def order_multi_leg_option(
-            self,
-            symbol: str,
-            order_type: str,
-            duration: str,
-            limit_price: float = None,
-            tag: str = None,
-            option_symbol_0: str = None,
-            side_0: str = None,
-            quantity_0: int = None,
-            option_symbol_1: str = None,
-            side_1: str = None,
-            quantity_1: int = None,
-            option_symbol_2: str = None,
-            side_2: str = None,
-            quantity_2: int = None,
-            option_symbol_3: str = None,
-            side_3: str = None,
-            quantity_3: int = None,
-            account_id: str = None
-
+        self,
+        symbol: str,
+        order_type: str,
+        duration: str,
+        limit_price: float = None,
+        tag: str = None,
+        option_symbol_0: str = None,
+        side_0: str = None,
+        quantity_0: int = None,
+        option_symbol_1: str = None,
+        side_1: str = None,
+        quantity_1: int = None,
+        option_symbol_2: str = None,
+        side_2: str = None,
+        quantity_2: int = None,
+        option_symbol_3: str = None,
+        side_3: str = None,
+        quantity_3: int = None,
+        account_id: str = None,
     ) -> OrderDetails:
         """
         Place an order to trade a single option.
@@ -341,7 +339,7 @@ class TradierAPI:
             option_symbol_3=option_symbol_3,
             side_3=side_3,
             quantity_3=quantity_3,
-            )
+        )
 
     def cancel_order(self, order_id, account_id=None) -> OrderDetails:
         """
@@ -565,10 +563,12 @@ class TradierAPI:
         else:
             return []
 
+
 @dataclass
 class TradierAPIError(Exception):
-        code:int
-        message:str
+    code: int
+    message: str
+
 
 @dataclass
 class TradierOrderError(Exception):
