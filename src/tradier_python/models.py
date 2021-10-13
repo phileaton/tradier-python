@@ -236,7 +236,6 @@ class Greeks(BaseModel):
     updated_at: str
 
 
-#Should have greeks
 class Quote(BaseModel):
     symbol: str
     description: str
@@ -282,46 +281,6 @@ class UnmatchedSymbols(BaseModel):
 class Quotes(BaseModel):
     quotes: List[Quote] = Field(alias="quote")
     unmatched_symbols: Optional[UnmatchedSymbols]
-
-#
-#
-# class OptionContract(BaseModel):
-#     symbol: str
-#     description: str
-#     exch: str
-#     type: str
-#     last: Any
-#     change: Any
-#     volume: int
-#     open: Any
-#     high: Any
-#     low: Any
-#     close: Any
-#     bid: float
-#     ask: float
-#     underlying: str
-#     strike: float
-#     change_percentage: Any
-#     average_volume: int
-#     last_volume: int
-#     trade_date: int
-#     prevclose: Any
-#     week_52_high: float
-#     week_52_low: float
-#     bidsize: int
-#     bidexch: str
-#     bid_date: int
-#     asksize: int
-#     askexch: str
-#     ask_date: int
-#     open_interest: int
-#     contract_size: int
-#     expiration_date: str
-#     expiration_type: str
-#     option_type: OptionType
-#     root_symbol: str
-#     greeks: Optional[Greeks]
-
 
 class Options(BaseModel):
     option: List[Quote]
@@ -442,5 +401,9 @@ class OrderDetails(BaseModel):
     partner_id: Optional[str]
 
 
+class APIErrors(BaseModel):
+    error_list: List[str] = Field(alias="error")
+
 class OrderAPIResponse(BaseModel):
-    order: OrderDetails
+    order: Optional[OrderDetails]
+    errors: Optional[APIErrors]

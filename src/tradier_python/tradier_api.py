@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from urllib.parse import urljoin
 
 import requests
@@ -230,6 +231,8 @@ class TradierAPI:
         params = {k: v for k, v in params.items() if v is not None}
         data = self.post(url, params)
         res = OrderAPIResponse(**data)
+        if res.errors:
+            raise TradierOrderError(res.errors.error_list)
         return res.order
 
     def order_equity(
@@ -562,11 +565,14 @@ class TradierAPI:
         else:
             return []
 
-
+@dataclass
 class TradierAPIError(Exception):
-    def __init__(self, code: int, message: str):
-        self.code = code
-        self.message = message
+        code:int
+        message:str
+
+@dataclass
+class TradierOrderError(Exception):
+    errors: List[str]
 
 
 def ensure_list(data, key1, key2=None):
