@@ -174,15 +174,18 @@ class TradierAPI:
         self,
         order_class: str,
         symbol: str,
-        side: str,
-        quantity: int,
         order_type: str,
         duration: str,
+        quantity: Optional[int],
+        side: Optional[str],
         limit_price: float = None,
         stop_price: float = None,
         tag: str = None,
         account_id: str = None,
         option_symbol: str = None,
+        option_symbol_0: str = None,
+        side_0: str = None,
+        quantity_0: int = None,
         option_symbol_1: str = None,
         side_1: str = None,
         quantity_1: int = None,
@@ -191,10 +194,8 @@ class TradierAPI:
         quantity_2: int = None,
         option_symbol_3: str = None,
         side_3: str = None,
-        quantity_3: int = None,
-        option_symbol_4: str = None,
-        side_4: str = None,
-        quantity_4: int = None,
+        quantity_3: int = None
+
     ) -> OrderDetails:
         """
         Place an order to trade a security.
@@ -213,6 +214,9 @@ class TradierAPI:
             "price": limit_price,
             "stop": stop_price,
             "tag": tag,
+            "option_symbol[0]": option_symbol_0,
+            "side[0]": side_0,
+            "quantity[0]": quantity_0,
             "option_symbol[1]": option_symbol_1,
             "side[1]": side_1,
             "quantity[1]": quantity_1,
@@ -221,10 +225,7 @@ class TradierAPI:
             "quantity[2]": quantity_2,
             "option_symbol[3]": option_symbol_3,
             "side[3]": side_3,
-            "quantity[3]": quantity_3,
-            "option_symbol[4]": option_symbol_4,
-            "side[4]": side_4,
-            "quantity[4]": quantity_4,
+            "quantity[3]": quantity_3
         }
         params = {k: v for k, v in params.items() if v is not None}
         data = self.post(url, params)
@@ -261,16 +262,16 @@ class TradierAPI:
 
     def order_option(
         self,
-        symbol: str,
-        option_symbol: str,
-        side: str,
-        quantity: int,
-        order_type: str,
-        duration: str,
-        limit_price: float = None,
-        stop_price: float = None,
-        tag: str = None,
-        account_id: str = None,
+            symbol: str,
+            option_symbol: str,
+            side: str,
+            quantity: int,
+            order_type: str,
+            duration: str,
+            limit_price: float = None,
+            stop_price: float = None,
+            tag: str = None,
+            account_id: str = None,
     ) -> OrderDetails:
         """
         Place an order to trade a single option.
@@ -288,6 +289,56 @@ class TradierAPI:
             tag=tag,
             account_id=account_id,
         )
+
+    def order_multi_leg_option(
+            self,
+            symbol: str,
+            order_type: str,
+            duration: str,
+            limit_price: float = None,
+            tag: str = None,
+            option_symbol_0: str = None,
+            side_0: str = None,
+            quantity_0: int = None,
+            option_symbol_1: str = None,
+            side_1: str = None,
+            quantity_1: int = None,
+            option_symbol_2: str = None,
+            side_2: str = None,
+            quantity_2: int = None,
+            option_symbol_3: str = None,
+            side_3: str = None,
+            quantity_3: int = None,
+            account_id: str = None
+
+    ) -> OrderDetails:
+        """
+        Place an order to trade a single option.
+        """
+        return self.order(
+            order_class="multileg",
+            symbol=symbol,
+            side=None,
+            quantity=None,
+            order_type=order_type,
+            duration=duration,
+            limit_price=limit_price,
+            stop_price=None,
+            tag=tag,
+            account_id=account_id,
+            option_symbol_0=option_symbol_0,
+            side_0=side_0,
+            quantity_0=quantity_0,
+            option_symbol_1=option_symbol_1,
+            side_1=side_1,
+            quantity_1=quantity_1,
+            option_symbol_2=option_symbol_2,
+            side_2=side_2,
+            quantity_2=quantity_2,
+            option_symbol_3=option_symbol_3,
+            side_3=side_3,
+            quantity_3=quantity_3,
+            )
 
     def cancel_order(self, order_id, account_id=None) -> OrderDetails:
         """
@@ -327,7 +378,7 @@ class TradierAPI:
         res = OrderAPIResponse(**data)
         return res.order
 
-    def get_quotes(self, symbols: str, greeks: bool = False) -> Quotes:
+    def get_quotes(self, symbols: str, greeks: bool = False) -> List[Quote]:
         """
         Get a list of symbols using a keyword lookup on the symbols description. Results are in descending order by
         average volume of the security. This can be used for simple search functions.
