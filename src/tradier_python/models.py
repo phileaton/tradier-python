@@ -95,7 +95,7 @@ class Balances(BaseModel):
     pending_cash: int
     margin: Optional[Margin]
     cash: Optional[Cash]
-    pdt: Pdt
+    pdt: Optional[Pdt]
 
 
 class Position(BaseModel):
