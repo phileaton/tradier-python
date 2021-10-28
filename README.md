@@ -37,8 +37,12 @@ print(profile)
 
 ## Version History
 
+* 0.1.2
+    * Export models from the package
+* 0.1.1
+    * Bug fixes
 * 0.1.0
-    * Initial Release
+    * Initial release
 
 ## License
 
