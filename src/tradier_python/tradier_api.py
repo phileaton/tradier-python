@@ -576,10 +576,14 @@ class TradierOrderError(Exception):
 
 
 def ensure_list(data, key1, key2=None):
+    """The API is inconsitent in how empty responses are returned. This ensures that we always get an empty list."""
     if key2 is None:
         key2 = key1[:-1]
 
-    if data[key1].get(key2) is None:
+    if isinstance(data[key1], list):
+        data[key1] = {}
+        data[key1][key2] = []
+    elif data[key1].get(key2) is None:
         data[key1][key2] = []
     elif not isinstance(data[key1].get(key2), list):
         data[key1][key2] = [data[key1][key2]]
