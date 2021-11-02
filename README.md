@@ -37,6 +37,9 @@ print(profile)
 
 ## Version History
 
+* 0.1.3
+    * In progress..
+    * Include tags by default when getting orders
 * 0.1.2
     * Export models from the package
 * 0.1.1

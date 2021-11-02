@@ -206,6 +206,7 @@ class Order(BaseModel):
     option_symbol: Optional[str] = None
     num_legs: Optional[int] = None
     strategy: Optional[str] = None
+    tag: Optional[str] = None
     leg: Optional[List[Leg]] = None
 
 

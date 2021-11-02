@@ -146,7 +146,7 @@ class TradierAPI:
 
     def get_orders(
         self,
-        include_tags: bool = False,
+        include_tags: bool = True,
         account_id=None,
     ) -> List[Order]:
         if account_id is None:
