@@ -9,7 +9,7 @@ You will need a Tradier account token which you can download from your account a
 
 The client also takes an optional default_account_id which can make it easier to get information if you only have one account. 
 
-The default endpoint points to the sandbox. You will need to set the endpoint to the brokerage endpoint for live use. 
+The default endpoint is the sandbox. You will need to set the endpoint to the brokerage endpoint for live use. 
 
 Reference documentation for the API can be found here: 
 
@@ -37,8 +37,9 @@ print(profile)
 
 ## Version History
 
+* 0.1.4
+    * 
 * 0.1.3
-    * In progress..
     * Include tags by default when getting orders
 * 0.1.2
     * Export models from the package
