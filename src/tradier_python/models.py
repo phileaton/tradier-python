@@ -11,11 +11,6 @@ SANDBOX_ENDPOINT = "https://sandbox.tradier.com/"
 class OptionType(Enum):
     CALL = "call"
     PUT = "put"
-
-
-class OptionType(Enum):
-    CALL = "call"
-    PUT = "put"
     # Next 2 lines added otherwise parsing will fail on option expiration or assignment
     EXP = "optexp"
     ASSIGN = "assignment"
