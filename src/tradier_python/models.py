@@ -409,5 +409,5 @@ class APIErrors(BaseModel):
 
 
 class OrderAPIResponse(BaseModel):
-    order: Optional[OrderDetails]
-    errors: Optional[APIErrors]
+    order: Optional[OrderDetails] = None
+    errors: Optional[APIErrors] = None
