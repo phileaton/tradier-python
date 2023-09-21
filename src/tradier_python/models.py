@@ -96,9 +96,10 @@ class Balances(BaseModel):
     total_cash: float
     uncleared_funds: int
     pending_cash: int
-    margin: Optional[Margin]
-    cash: Optional[Cash]
-    pdt: Optional[Pdt]
+    # Only one of the following three is required, based on `account_type`.
+    margin: Optional[Margin] = None
+    cash: Optional[Cash] = None
+    pdt: Optional[Pdt] = None
 
 
 class Position(BaseModel):
