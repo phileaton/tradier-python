@@ -282,7 +282,7 @@ class UnmatchedSymbols(BaseModel):
 
 class Quotes(BaseModel):
     quotes: List[Quote] = Field(alias="quote")
-    unmatched_symbols: Optional[UnmatchedSymbols]
+    unmatched_symbols: Optional[UnmatchedSymbols] = None
 
 
 class Options(BaseModel):
