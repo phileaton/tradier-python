@@ -404,7 +404,7 @@ class MarketsAPIResponse(BaseModel):
 
 
 class OrderDetails(BaseModel):
-    id: str
+    id: int
     status: str
     partner_id: Optional[str]
 
