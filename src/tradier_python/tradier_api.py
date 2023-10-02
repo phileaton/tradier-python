@@ -30,7 +30,7 @@ class TradierAPI:
 
         if response.status_code != 200:
             raise TradierAPIError(
-                response.status_code, response.content.decode("utf-8")
+                response.status_code, response.content.decode("utf-8"), params
             )
         res_json = response.json()
         key = url.rsplit("/", 1)[-1]
@@ -568,6 +568,7 @@ class TradierAPI:
 class TradierAPIError(Exception):
     code: int
     message: str
+    params: dict
 
 
 @dataclass
