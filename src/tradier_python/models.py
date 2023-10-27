@@ -50,47 +50,47 @@ class Profile(BaseModel):
 
 
 class Margin(BaseModel):
-    fed_call: int
-    maintenance_call: int
+    fed_call: float
+    maintenance_call: float
     option_buying_power: float
     stock_buying_power: float
-    stock_short_value: int
-    sweep: int
+    stock_short_value: float
+    sweep: float
 
 
 class Cash(BaseModel):
     cash_available: float
-    sweep: int
+    sweep: float
     unsettled_funds: float
 
 
 class Pdt(BaseModel):
-    fed_call: int
-    maintenance_call: int
+    fed_call: float
+    maintenance_call: float
     option_buying_power: float
     stock_buying_power: float
-    stock_short_value: int
+    stock_short_value: float
 
 
 class Balances(BaseModel):
-    option_short_value: int
+    option_short_value: float
     total_equity: float
     account_number: str
     account_type: str
     close_pl: float
     current_requirement: float
-    equity: int
+    equity: float
     long_market_value: float
     market_value: float
     open_pl: float
     option_long_value: float
-    option_requirement: int
+    option_requirement: float
     pending_orders_count: int
-    short_market_value: int
+    short_market_value: float
     stock_long_value: float
     total_cash: float
-    uncleared_funds: int
-    pending_cash: int
+    uncleared_funds: float
+    pending_cash: float
     # Only one of the following three is required, based on `account_type`.
     margin: Optional[Margin] = None
     cash: Optional[Cash] = None
