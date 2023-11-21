@@ -2,7 +2,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 BROKERAGE_ENDPOINT = "https://api.tradier.com/"
 SANDBOX_ENDPOINT = "https://sandbox.tradier.com/"
@@ -41,7 +41,7 @@ class Profile(BaseModel):
     id: str
     name: str
 
-    @validator("account", pre=True)
+    @field_validator("account", mode='before')
     @classmethod
     def to_list(cls, v):
         """The API sometimes returns a single account and sometimes a list. Always return a list here for

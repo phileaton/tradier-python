@@ -96,7 +96,7 @@ class TradierAPI:
         account_id=None,
         page: int = None,
         limit: int = None,
-        type: str = None,
+        history_type: str = None,
         start: date = None,
         end: date = None,
         symbol: str = None,
@@ -108,7 +108,7 @@ class TradierAPI:
         params = {
             "page": page,
             "limit": limit,
-            "type": type,
+            "type": history_type,
             "start": start,
             "end": end,
             "symbol": symbol,
@@ -159,13 +159,13 @@ class TradierAPI:
 
     def get_order(
         self,
-        id: str,
+        order_id: str,
         include_tags: bool = False,
         account_id=None,
     ):
         if account_id is None:
             account_id = self.default_account_id
-        url = f"/v1/accounts/{account_id}/orders/{id}"
+        url = f"/v1/accounts/{account_id}/orders/{order_id}"
         params = {"includeTags": include_tags}
         data = self.get(url, params)
         res = AccountsAPIResponse(**data)
@@ -446,7 +446,8 @@ class TradierAPI:
 
     def lookup_option_symbols(self, underlying: str) -> List[Symbol]:
         """
-        Get all options symbols for the given underlying. This will include additional option roots (ex. SPXW, RUTW) if applicable.
+        Get all options symbols for the given underlying. This will include additional option roots (ex. SPXW, RUTW) if
+        applicable.
         """
         url = "/v1/markets/options/lookup"
         params = {"underlying": underlying}
@@ -460,11 +461,11 @@ class TradierAPI:
     ) -> List[HistoricQuote]:
         """
         Get historical pricing for a security. This data will usually cover the entire lifetime of the company if
-        sending reasonable start/end times. You can fetch historical pricing for options by passing the OCC option symbol
-        (ex. AAPL220617C00270000) as the symbol.
+        sending reasonable start/end times. You can fetch historical pricing for options by passing the OCC option
+        symbol (ex. AAPL220617C00270000) as the symbol.
 
-        Notes: Historical data may not be dividend adjusted as this relies on the exchanges to report/adjust it properly.
-        Historical options data is not available for expired options.
+        Notes: Historical data may not be dividend adjusted as this relies on the exchanges to report/adjust it
+        properly. Historical options data is not available for expired options.
         """
         url = "/v1/markets/history"
         params = {"symbol": symbol, "interval": interval, "start": start, "end": end}
