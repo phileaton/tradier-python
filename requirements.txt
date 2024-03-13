@@ -2,6 +2,7 @@ tox
 black
 isort
 pre-commit
+pydantic
 pytest
 pytest-cov
 pytest-dotenv
