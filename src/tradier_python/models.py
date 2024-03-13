@@ -19,7 +19,7 @@ class OptionType(Enum):
     # Next 2 lines added otherwise parsing will fail on option expiration or assignment
     EXP = "optexp"
     ASSIGN = "assignment"
-    
+
     def __repr__(self):
         return self.value
 
