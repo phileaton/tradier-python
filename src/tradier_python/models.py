@@ -2,7 +2,7 @@ from datetime import date, datetime, time
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 BROKERAGE_ENDPOINT = "https://api.tradier.com/"
 SANDBOX_ENDPOINT = "https://sandbox.tradier.com/"
@@ -11,15 +11,10 @@ SANDBOX_ENDPOINT = "https://sandbox.tradier.com/"
 class OptionType(Enum):
     CALL = "call"
     PUT = "put"
-
-
-class OptionType(Enum):
-    CALL = "call"
-    PUT = "put"
     # Next 2 lines added otherwise parsing will fail on option expiration or assignment
     EXP = "optexp"
     ASSIGN = "assignment"
-    
+
     def __repr__(self):
         return self.value
 
@@ -46,7 +41,7 @@ class Profile(BaseModel):
     id: str
     name: str
 
-    @validator("account", pre=True)
+    @field_validator("account", mode='before')
     @classmethod
     def to_list(cls, v):
         """The API sometimes returns a single account and sometimes a list. Always return a list here for
@@ -55,50 +50,51 @@ class Profile(BaseModel):
 
 
 class Margin(BaseModel):
-    fed_call: int
-    maintenance_call: int
+    fed_call: float
+    maintenance_call: float
     option_buying_power: float
     stock_buying_power: float
-    stock_short_value: int
-    sweep: int
+    stock_short_value: float
+    sweep: float
 
 
 class Cash(BaseModel):
     cash_available: float
-    sweep: int
+    sweep: float
     unsettled_funds: float
 
 
 class Pdt(BaseModel):
-    fed_call: int
-    maintenance_call: int
+    fed_call: float
+    maintenance_call: float
     option_buying_power: float
     stock_buying_power: float
-    stock_short_value: int
+    stock_short_value: float
 
 
 class Balances(BaseModel):
-    option_short_value: int
+    option_short_value: float
     total_equity: float
     account_number: str
     account_type: str
     close_pl: float
     current_requirement: float
-    equity: int
+    equity: float
     long_market_value: float
     market_value: float
     open_pl: float
     option_long_value: float
-    option_requirement: int
+    option_requirement: float
     pending_orders_count: int
-    short_market_value: int
+    short_market_value: float
     stock_long_value: float
     total_cash: float
-    uncleared_funds: int
-    pending_cash: int
-    margin: Optional[Margin]
-    cash: Optional[Cash]
-    pdt: Optional[Pdt]
+    uncleared_funds: float
+    pending_cash: float
+    # Only one of the following three is required, based on `account_type`.
+    margin: Optional[Margin] = None
+    cash: Optional[Cash] = None
+    pdt: Optional[Pdt] = None
 
 
 class Position(BaseModel):
@@ -263,10 +259,10 @@ class Quote(BaseModel):
     week_52_high: float
     week_52_low: float
     bidsize: int
-    bidexch: str
+    bidexch: Optional[str]
     bid_date: datetime
     asksize: int
-    askexch: str
+    askexch: Optional[str]
     ask_date: datetime
     root_symbols: Optional[str] = None
     underlying: Optional[str] = None
@@ -286,7 +282,7 @@ class UnmatchedSymbols(BaseModel):
 
 class Quotes(BaseModel):
     quotes: List[Quote] = Field(alias="quote")
-    unmatched_symbols: Optional[UnmatchedSymbols]
+    unmatched_symbols: Optional[UnmatchedSymbols] = None
 
 
 class Options(BaseModel):
@@ -403,7 +399,7 @@ class MarketsAPIResponse(BaseModel):
 
 
 class OrderDetails(BaseModel):
-    id: str
+    id: int
     status: str
     partner_id: Optional[str]
 
@@ -413,5 +409,5 @@ class APIErrors(BaseModel):
 
 
 class OrderAPIResponse(BaseModel):
-    order: Optional[OrderDetails]
-    errors: Optional[APIErrors]
+    order: Optional[OrderDetails] = None
+    errors: Optional[APIErrors] = None
